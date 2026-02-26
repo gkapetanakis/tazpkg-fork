@@ -77,10 +77,10 @@ actions() {
 dl_inst() {
 	pkg="$(basename $url)"
 	_ 'Downloading: %s' "$pkg"; newline
-	TMP_DIR=$(mktemp); cd "$TMP_DIR"
-	wget "$url" 2>&1
+	TMP_DIR=$(mktemp -d); cd "$TMP_DIR"
+	wget -O "$TMP_DIR/$pkg" "$url" 2>&1
 	tazpkg -i "$TMP_DIR/$pkg" --forced --output='raw' --cols=65 2>&1
-	rm -f "$TMP_DIR"
+	rm -rf "$TMP_DIR"
 }
 
 
